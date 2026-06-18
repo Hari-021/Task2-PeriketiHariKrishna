@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: subscription-tracker-3d
+    env: node
+    plan: free
+    buildCommand: npm run install:all && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        generateValue: true
+      # To use MongoDB Atlas, configure MONGODB_URI in the Render dashboard

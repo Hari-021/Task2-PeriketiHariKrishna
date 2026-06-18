@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: subscription-tracker:latest
+    container_name: subscription-tracker-app
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - JWT_SECRET=super_secret_production_key_change_me_in_prod
+      # To connect to an external MongoDB service:
+      # - MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/dbname
+    volumes:
+      # Persist the fallback local JSON file database so user data is not lost on container restart
+      - app-data:/app/backend/data
+    restart: unless-stopped
+
+volumes:
+  app-data:
